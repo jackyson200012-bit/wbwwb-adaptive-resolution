@@ -1,4 +1,3 @@
-
 # DEAR ASPIRING TRANSLATORS, PLEASE CHECK THE MAIN PAGE DESCRIPTION FIRST TO SEE IF YOUR TRANSLATION ALREADY EXISTS: https://ncase.itch.io/wbwwb (also check the Issues to see if your translation is already being worked on - collaborate with them if they're stuck!)
 
 *a game about news cycles, vicious cycles, infinite cycles*
@@ -43,37 +42,14 @@ The adaptive-resolution work preserves the original 960×540 composition as its 
 
 - **M0/M1:** Source inventory and adaptive viewport geometry are documented in `docs/ADAPTIVE_RESOLUTION_M0_BASELINE.md`; implementation is in `js/core/Viewport.js`.
 - **M2:** PixiJS 4.0.3 renderer resizing, root-stage scaling, high-DPI backing resolution, screen-to-world pointer conversion, and full-window canvas styling are integrated. Details are in `docs/ADAPTIVE_RESOLUTION_M2.md`.
-- **M3:** Fixed 960x540 scenes are centered without stretching, gameplay backgrounds and bounds adapt to the expanded world, and resize hooks update camera/scene elements. Details are in `docs/ADAPTIVE_RESOLUTION_M3.md`.
+- **M3:** Fixed 960×540 scenes are centered without stretching, gameplay backgrounds and bounds adapt to the expanded world, and resize hooks update camera/scene elements. Details are in `docs/ADAPTIVE_RESOLUTION_M3.md`.
 - **M4:** Story-authored positions, AI avoid zones, world props, camera photo movement, Director zoom transitions, and the laptop zoom overlay are hardened for live viewport changes. Details are in `docs/ADAPTIVE_RESOLUTION_M4.md`.
-- **Still required:** Desktop browser WebGL visual and end-to-end gameplay regression testing. Automated tests pass, but actual game rendering has not yet been verified in this environment.
+- **M4.1:** Startup compatibility hotfix selects English as the default active translation dictionary for standalone source downloads and updates PixiJS render-texture creation calls. Details: `docs/ADAPTIVE_RESOLUTION_M4_1_HOTFIX.md`.
+- **M4.2:** Fixes the black-screen startup issue by migrating legacy `RenderTexture.render()` calls to `Game.renderer.render()`. Details: `docs/ADAPTIVE_RESOLUTION_M4_2_BLACK_SCREEN_FIX.md`.
+- **M5.1:** Fixes the cropped/zoomed TV preview by removing the adaptive root-stage scale from offscreen RenderTexture transforms while preserving nested scene/camera transforms. Details: `docs/ADAPTIVE_RESOLUTION_M5_1_TV_PREVIEW_FIX.md`.
+- **M6:** Packages the adaptive-resolution implementation with fullscreen and resize handling, camera/TV preview fixes, release documentation, and automated regression tests. See `docs/ADAPTIVE_RESOLUTION_M6_RELEASE.md`.
 
-Run the automated checks from the repository root:
-
-```sh
-node tests/viewport.test.js
-node tests/adaptive-renderer.test.js
-node tests/adaptive-layout.test.js
-node tests/adaptive-game-helpers.test.js
-node tests/adaptive-gameplay.test.js
-```
-
-
-- **M4.1 startup compatibility hotfix:** Selects English as the default active translation dictionary for standalone source downloads and updates PixiJS 4 render-texture creation calls. Details: `docs/ADAPTIVE_RESOLUTION_M4_1_HOTFIX.md`.
-
-- **M4.2 black-screen fix:** Migrates the remaining legacy `RenderTexture.render()` calls to `Game.renderer.render()` for PixiJS 4.0.3 factory-created textures. See `docs/ADAPTIVE_RESOLUTION_M4_2_BLACK_SCREEN_FIX.md`.
-
-- **M5.1 TV preview fix:** Removes the adaptive root-stage scale from offscreen RenderTexture transforms while preserving nested scene/camera transforms. Fixes the cropped/zoomed TV preview observed at 1920x1080. Details: `docs/ADAPTIVE_RESOLUTION_M5_1_TV_PREVIEW_FIX.md`.
-
-Additional render-texture regression test:
-
-```sh
-node tests/render-texture-api.test.js
-```
-
-
-## Adaptive Resolution 6.0.0
-
-This release packages the adaptive-resolution work around the original 960x540 composition. It expands the visible logical world to fit wider or taller displays instead of stretching the original artwork.
+The project owner confirmed the M4.2 black-screen fix and M5.1 TV preview fix in a Windows browser. The automated checks are documented below; broader manual gameplay and multi-aspect-ratio regression testing may still be useful.
 
 ### Quick start
 
@@ -95,39 +71,18 @@ npm run check
 npm run validate
 ```
 
-See [`docs/ADAPTIVE_RESOLUTION_M6_RELEASE.md`](docs/ADAPTIVE_RESOLUTION_M6_RELEASE.md) for the release scope, manual QA status, and attribution notes. The earlier milestone implementation notes remain in `docs/`.
+Individual regression tests can also be run directly:
+
+```sh
+node tests/viewport.test.js
+node tests/adaptive-renderer.test.js
+node tests/adaptive-layout.test.js
+node tests/adaptive-game-helpers.test.js
+node tests/adaptive-gameplay.test.js
+node tests/render-texture-api.test.js
+```
 
 An unofficial adaptive-resolution adaptation of [We Become What We Behold](https://github.com/ncase/wbwwb).
-
-## M6.0.0
-
-This project preserves the original 960×540 composition while adapting the visible game world to wider and taller displays.
-
-### Features
-
-- Adaptive horizontal and vertical viewport expansion
-- PixiJS 4.0.3 renderer integration
-- Fullscreen and resize handling
-- Pointer coordinate conversion for adaptive viewports
-- Camera and TV preview rendering fixes
-- English default language selection while retaining translations
-- Automated regression tests and release documentation
-
-### Validation reported for the M6 release archive
-
-- 8/8 automated test suites passed
-- 54 JavaScript syntax checks passed
-- 0 missing local HTML references
-
-The black-screen startup issue and TV preview crop were tested and confirmed fixed by the project owner in a Windows browser.
-
-## Source archive
-
-The complete M6 source archive is available from the project maintainer's ChatGPT conversation as `wbwwb-adaptive-m6-final.zip`.
-
-SHA-256:
-
-`bd526ac5531450ee3fe313b2bdd8cc9762a112a626292b5a8620d91f7af03730`
 
 ## Attribution
 
